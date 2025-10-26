@@ -1,0 +1,116 @@
+Raíz del proyecto:
+
+            .-/+oossssoo+/-.               walter@AcerAspire
+        `:+ssssssssssssssssss+:`           -----------------
+      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 24.04.3 LTS x86_64
+    .ossssssssssssssssssdMMMNysssso.       Host: Aspire A514-54 V1.30
+   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 6.14.0-33-generic
+  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 6 hours, 11 mins
+ /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 2709 (dpkg), 12 (flatpak)
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: bash 5.2.21
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   Resolution: 1920x1080
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   DE: Unity 7.7.0
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   WM: Compiz
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   WM Theme: Ambiance
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Theme: Ambiance [GTK2/3]
+ /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Icons: Humanity [GTK2/3]
+  +sssssssssdmydMMMMMMMMddddyssssssss+     Terminal: gnome-terminal
+   /ssssssssssshdmNNNNmyNMMMMhssssss/      CPU: 11th Gen Intel i5-1135G7 (8) @
+    .ossssssssssssssssssdMMMNysssso.       GPU: Intel TigerLake-LP GT2 [Iris Xe
+      -+sssssssssssssssssyyyssss+-         Memory: 5176MiB / 19779MiB
+        `:+ssssssssssssssssss+:`
+            .-/+oossssoo+/-.
+
+
+
+walter@AcerAspire:~/Proyects/LiveCaptionsEnhanced$
+
+
+
+Nombre del autor del Fork: Walter García
+
+Créditos al autor del repositorio original.
+
+
+
+Estaremos trabajando en esta app de subtítulos para Linux.
+
+Editor de texto del proyecto: "kate", sin sudo. Es un reemplazo directo de Notepad++ y nos evita tener que usar el engorroso "sudo nano" porque no me gusta. Sin "sudo" porque si kate lo necsita, pide contraseña sin necesidad de "sudo".
+
+
+
+Primeros pasos, instalar dependencias:
+
+sudo apt install meson ninja-build pkg-config build-essential libadwaita-1-dev libpulse-dev appstream-util desktop-file-utils gettext libglib2.0-dev
+
+walter@AcerAspire:~/Proyects/LiveCaptionsEnhanced$ sudo apt install meson ninja-build pkg-config build-essential libadwaita-1-dev libpulse-dev appstream-util desktop-file-utils gettext libglib2.0-dev
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+meson is already the newest version (1.3.2-1ubuntu1).
+ninja-build is already the newest version (1.11.1-2).
+build-essential is already the newest version (12.10ubuntu1).
+libadwaita-1-dev is already the newest version (1.5.0-1ubuntu2).
+libpulse-dev is already the newest version (1:16.1+dfsg1-2ubuntu10.1).
+desktop-file-utils is already the newest version (0.27-2build1).
+desktop-file-utils set to manually installed.
+gettext is already the newest version (0.21-14ubuntu2).
+gettext set to manually installed.
+libglib2.0-dev is already the newest version (2.80.0-6ubuntu3.4).
+libglib2.0-dev set to manually installed.
+The following NEW packages will be installed:
+  appstream-util pkg-config
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Need to get 170 kB of archives.
+After this operation, 896 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu noble/universe amd64 appstream-util amd64 0.8.2-1.1build1 [163 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 pkg-config amd64 1.8.1-2build1 [7,264 B]
+Fetched 170 kB in 1s (133 kB/s)
+Selecting previously unselected package appstream-util.
+(Reading database ... 322615 files and directories currently installed.)
+Preparing to unpack .../appstream-util_0.8.2-1.1build1_amd64.deb ...
+Unpacking appstream-util (0.8.2-1.1build1) ...
+Selecting previously unselected package pkg-config:amd64.
+Preparing to unpack .../pkg-config_1.8.1-2build1_amd64.deb ...
+Unpacking pkg-config:amd64 (1.8.1-2build1) ...
+Setting up appstream-util (0.8.2-1.1build1) ...
+Setting up pkg-config:amd64 (1.8.1-2build1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+walter@AcerAspire:~/Proyects/LiveCaptionsEnhanced$
+
+
+### Instalación de ONNX Runtime
+
+Esta dependencia es esencial para el motor de reconocimiento de voz. La descargaremos y la ubicaremos en el directorio `/opt`, que es el lugar estándar para software de terceros.
+
+
+cd ~/Proyects/
+
+# Descarga del archivo de ONNX Runtime v1.14.1
+wget https://github.com/microsoft/onnxruntime/releases/download/v1.14.1/onnxruntime-linux-x64-1.14.1.tgz
+
+# Descompresión del archivo. Se creará una carpeta con el mismo nombre.
+tar -zxvf onnxruntime-linux-x64-1.14.1.tgz
+
+# Si ya existía una versión anterior en /opt, la eliminamos para evitar conflictos
+sudo rm -rf /opt/onnxruntime-linux-x64-1.14.1
+
+# Movemos la carpeta recién descomprimida a /opt para tenerla organizada
+sudo mv onnxruntime-linux-x64-1.14.1 /opt/
+
+# Limpiamos el archivo comprimido que ya no necesitamos
+rm onnxruntime-linux-x64-1.14.1.tgz
+
+
+
+### Configuración de las variables de entorno
+
+# Exportamos la ruta raíz de ONNX para que el compilador la encuentre
+export ONNX_ROOT=/opt/onnxruntime-linux-x64-1.14.1/
+
+# Añadimos la librería de ONNX a la ruta de búsqueda del sistema para que el ejecutable la encuentre
+export LD_LIBRARY_PATH=$ONNX_ROOT/lib:$LD_LIBRARY_PATH
+
+
+
