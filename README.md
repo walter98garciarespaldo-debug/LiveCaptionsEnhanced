@@ -24,7 +24,7 @@ This fork honors the foundational work of the [original author (abb128)](https:/
 *   **Session History:** Saves, displays, and allows exporting transcripts.
 *   **Minimalist Interface:** Designed to be simple and non-intrusive.
 
-![Application Screenshot](screenshot.png)
+![Application Screenshot](screenshot1.png)
 
 ## Build and Installation (From Source)
 
