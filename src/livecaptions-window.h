@@ -29,6 +29,8 @@ struct _LiveCaptionsWindow {
 
     /* Template widgets */
     GtkWidget        *main;
+    GtkScrolledWindow *scrolled_window;
+    GtkAdjustment    *scroll_adjustment;
     GtkBox           *side_box;
     GtkBox           *side_box_tiny;
     GtkToggleButton  *mic_button;
@@ -39,7 +41,7 @@ struct _LiveCaptionsWindow {
     bool slow_warning_shown;
     GtkWidget *too_slow_warning;
     time_t slow_time;
-    
+
     GtkWidget *slow_warning;
     GtkWidget *slowest_warning;
 
@@ -48,6 +50,7 @@ struct _LiveCaptionsWindow {
     volatile int max_text_width;
 
     gboolean was_errored;
+    gulong scroll_handler_id; /* ID del manejador de señal */
 };
 
 G_BEGIN_DECLS

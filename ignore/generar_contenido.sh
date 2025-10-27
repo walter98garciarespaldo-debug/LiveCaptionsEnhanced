@@ -2,7 +2,7 @@
 
 # ==============================================================================
 #           GENERADOR DE CONTENIDO DEL PROYECTO LiveCaptions-Walter
-# Versión: 4.0 (Método simple y directo. A prueba de fallos.)
+# Versión: 4.3 (Exclusiones e inclusiones específicas actualizadas)
 # ==============================================================================
 
 # --- Configuración ---
@@ -12,14 +12,25 @@ OUTPUT_FILE="$SCRIPT_DIR/contenido_proyecto.txt"
 SEPARATOR_LINE="================================================================================"
 
 # --- Listas de Filtrado ---
-# Extensiones que SÍ queremos.
-INCLUDED_EXTENSIONS=(
+INCLUDED_PATTERNS=(
     "c" "h" "ui" "xml" "css" "meson.build" "in" "svg" "md"
     "walter" "txt" "nix" "lock" "sh" "POTFILES" "LINGUAS" "README"
 )
-# Carpetas y archivos que NO queremos.
-EXCLUDED_DIRS=("./.git" "./ignore" "./subprojects")
-EXCLUDED_FILES=("gschemas.compiled" "livecaptions-fork.deb" "COPYING")
+
+# Directorios y archivos que NO queremos procesar en el contenido.
+EXCLUDED_DIRS=(
+    "./.git"
+    "./.github"
+    "./build"
+    "./builddir"
+)
+EXCLUDED_FILES=(
+    "gschemas.compiled"
+    "livecaptions-fork.deb"
+    "COPYING"
+    "./ignore/contenido_proyecto.txt"
+    "./april-english-dev-01110_en.april"
+)
 
 # --- Medición de tiempo ---
 start_time=$(date +%s.%N)
@@ -40,17 +51,18 @@ echo "1. Generando estructura de directorios..."
     echo "           ESTRUCTURA DE DIRECTORIOS Y ARCHIVOS (TREE)"
     echo "$SEPARATOR_LINE"
     echo ""
-    tree -I '.git|ignore|subprojects'
+    # Se excluyen build, builddir, .git y .github, pero no se excluye la carpeta 'ignore' ni 'subprojects'
+    tree_exclude_pattern=$(printf "%s|" "${EXCLUDED_DIRS[@]}" | sed 's/\.\///g' | sed 's/|$//')
+    tree -I "$tree_exclude_pattern"
     echo ""
     echo "$SEPARATOR_LINE"
     echo -e "\n\n"
 } >> "$OUTPUT_FILE"
 echo "   ... estructura añadida."
 
-# --- 2. Contenido de archivos ---
+# --- 2. Contenido de los archivos ---
 echo "2. Procesando contenido de los archivos..."
 
-# Función para añadir el contenido de un archivo
 append_file_content() {
     local file_path="$1"
     echo "   - Añadiendo: $file_path"
@@ -70,31 +82,36 @@ append_file_content() {
     } >> "$OUTPUT_FILE"
 }
 
-# --- Procesamiento Prioritario ---
 PRIMARY_FILE="Instrucciones.walter"
 if [ -f "$PRIMARY_FILE" ]; then
     append_file_content "$PRIMARY_FILE"
 fi
 
-# --- Búsqueda y procesamiento de todos los demás archivos ---
-# Este es el método más simple:
-# 1. `find` crea la lista completa de archivos.
-# 2. `grep` filtra esa lista para quedarnos solo con lo que queremos.
-# 3. El bucle `while` procesa cada archivo de la lista final.
+# --- Inclusiones explícitas ---
+append_file_content "./ignore/generar_contenido.sh"
+append_file_content "./.gitignore"
+append_file_content "./.gitmodules"
+append_file_content "./subprojects/april-asr"
 
-# Paso 1: Generar lista de extensiones para grep
-# Crea una cadena como: (\.c|\.h|\.ui|meson\.build|README)$
-grep_pattern=$(printf "\\.%s$|" "${INCLUDED_EXTENSIONS[@]}")
-grep_pattern="(${grep_pattern%|})" # Elimina el último '|'
+# --- Búsqueda y procesamiento general ---
+grep_pattern=""
+for pattern in "${INCLUDED_PATTERNS[@]}"; do
+    if [[ "$pattern" == "meson.build" || "$pattern" == "README" || "$pattern" == "LINGUAS" || "$pattern" == "POTFILES" ]]; then
+        grep_pattern+="$pattern$|"
+    else
+        grep_pattern+="\\.$pattern$|"
+    fi
+done
+grep_pattern="(${grep_pattern%|})"
 
-# Paso 2: Generar exclusiones para grep
-# Crea una cadena como: ./.git/|./ignore/|./subprojects/|gschemas.compiled|COPYING
-exclude_pattern=$(printf "%s/|%s|" "${EXCLUDED_DIRS[@]}" "${EXCLUDED_FILES[@]}")
+exclude_pattern=""
+for item in "${EXCLUDED_DIRS[@]}" "${EXCLUDED_FILES[@]}"; do
+    escaped_item=$(echo "$item" | sed 's/\./\\./g')
+    exclude_pattern+="$escaped_item|"
+done
 exclude_pattern="^(${exclude_pattern%|})"
 
-# Paso 3: Ejecutar y procesar
 find . -type f | grep -E "$grep_pattern" | grep -vE "$exclude_pattern" | sort | while read -r file_path; do
-    # Nos aseguramos de no procesar de nuevo el archivo prioritario
     if [[ "$(basename "$file_path")" != "$PRIMARY_FILE" ]]; then
         clean_path="${file_path#./}"
         append_file_content "$clean_path"
