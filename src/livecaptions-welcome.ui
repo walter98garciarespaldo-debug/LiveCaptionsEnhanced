@@ -24,7 +24,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>
@@ -106,7 +106,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>
@@ -149,7 +149,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>
@@ -217,7 +217,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>
@@ -286,7 +286,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>
@@ -344,7 +344,7 @@
                     <child>
                       <object class="GtkImage">
                         <property name="name">logo</property>
-                        <property name="icon-name">net.sapples.LiveCaptions</property>
+                        <property name="icon-name">net.waltergarcia.LiveCaptions</property>
                         <property name="pixel-size">196</property>
                         <property name="margin-bottom">24</property>
                         <style>

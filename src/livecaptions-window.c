@@ -66,7 +66,7 @@ G_DEFINE_TYPE(LiveCaptionsWindow, livecaptions_window, GTK_TYPE_APPLICATION_WIND
 static void livecaptions_window_class_init(LiveCaptionsWindowClass *klass) {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    gtk_widget_class_set_template_from_resource(widget_class, "/net/sapples/LiveCaptions/livecaptions-window.ui");
+    gtk_widget_class_set_template_from_resource(widget_class, "/net/waltergarcia/LiveCaptions/livecaptions-window.ui");
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWindow, main);
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWindow, scrolled_window);
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWindow, side_box);
@@ -119,7 +119,7 @@ static void update_line_width(LiveCaptionsWindow *self) {
     pango_layout_get_size(layout, &width, &height);
 
     int line_height = height / PANGO_SCALE;
-    height = line_height * 10;
+    height = line_height * 4; // Reducido de 10 a 4 para ser más compacto
     width = (width / PANGO_SCALE);
     change_button_layout(self, height);
 
@@ -268,7 +268,7 @@ static gboolean show_relevant_slow_warning(void *userdata) {
 static void livecaptions_window_init(LiveCaptionsWindow *self) {
     gtk_widget_init_template(GTK_WIDGET(self));
 
-    self->settings = g_settings_new("net.sapples.LiveCaptions");
+    self->settings = g_settings_new("net.waltergarcia.LiveCaptions");
     self->scroll_adjustment = gtk_scrolled_window_get_vadjustment(self->scrolled_window);
 
     // Mantener scroll al fondo durante actualizaciones (GTK4 Way)

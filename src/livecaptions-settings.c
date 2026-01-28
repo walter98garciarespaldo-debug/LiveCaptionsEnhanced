@@ -29,6 +29,8 @@
 
 G_DEFINE_TYPE(LiveCaptionsSettings, livecaptions_settings, ADW_TYPE_PREFERENCES_WINDOW)
 
+static void find_headerbar_recursive(GtkWidget *widget, GtkWidget **found);
+
 static void rerun_benchmark_cb (LiveCaptionsSettings *self) {
     gtk_window_close(GTK_WINDOW(self));
 
@@ -42,26 +44,28 @@ static void about_cb(LiveCaptionsSettings *self) {
     GtkWidget *about;
 
     const char *developers[] = {
+        "Walter García",
         "abb128",
         NULL
     };
 
     const char *special_thanks[] = {
         "Fangjun Kuang (@csukuangfj) and the k2-fsa/icefall contributors",
+        "Abby (abb128) - Original Creator",
         NULL
     };
 
     about =
         g_object_new(ADW_TYPE_ABOUT_WINDOW,
                     "transient-for", root,
-                    "application-icon", "net.sapples.LiveCaptions",
-                    "application-name", _("Live Captions"),
-                    "developer-name", _("abb128"),
+                    "application-icon", "net.waltergarcia.LiveCaptions",
+                    "application-name", _("Live Captions Enhanced"),
+                    "developer-name", _("Walter García"),
                     "version", LIVECAPTIONS_VERSION,
-                    "website", "https://github.com/abb128/LiveCaptions",
-                    "issue-url", "https://github.com/abb128/LiveCaptions/issues",
-                    "support-url", "https://discord.gg/QWaJHxWjUM",
-                    "copyright", "Copyright © 2022 abb128",
+                    "website", "https://github.com/walter98garciarespaldo-debug/LiveCaptionsEnhanced",
+                    "issue-url", "https://github.com/walter98garciarespaldo-debug/LiveCaptionsEnhanced/issues",
+                    "support-url", "mailto:walter98garcia@gmail.com",
+                    "copyright", "Copyright © 2026 Walter García & abb128",
                     "license-type", GTK_LICENSE_GPL_3_0,
                     "developers", developers,
                     "translator-credits", _("translator-credits"),
@@ -102,13 +106,23 @@ static void about_cb(LiveCaptionsSettings *self) {
                                                  special_thanks);
 
     gtk_window_present(GTK_WINDOW(about));
+    
+    GtkWidget *header = NULL;
+    find_headerbar_recursive(about, &header);
+    if (header && ADW_IS_HEADER_BAR(header)) {
+        GtkWidget *close_btn = gtk_button_new_from_icon_name("window-close-symbolic");
+        gtk_widget_add_css_class(close_btn, "circular");
+        gtk_widget_add_css_class(close_btn, "destructive-action");
+        g_signal_connect_swapped(close_btn, "clicked", G_CALLBACK(gtk_window_close), about);
+        adw_header_bar_pack_end(ADW_HEADER_BAR(header), close_btn);
+    }
 }
 
 
 static void report_cb(LiveCaptionsSettings *self) {
     gtk_show_uri(
         GTK_WINDOW(self),
-        "https://github.com/abb128/LiveCaptions/issues/48",
+        "https://github.com/walter98garciarespaldo-debug/LiveCaptionsEnhanced/issues",
         GDK_CURRENT_TIME
     );
 }
@@ -176,7 +190,7 @@ static void on_builtin_toggled(LiveCaptionsSettings *self);
 static void livecaptions_settings_class_init(LiveCaptionsSettingsClass *klass) {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    gtk_widget_class_set_template_from_resource(widget_class, "/net/sapples/LiveCaptions/livecaptions-settings.ui");
+    gtk_widget_class_set_template_from_resource(widget_class, "/net/waltergarcia/LiveCaptions/livecaptions-settings.ui");
 
     gtk_widget_class_bind_template_child (widget_class, LiveCaptionsSettings, font_button);
     gtk_widget_class_bind_template_child (widget_class, LiveCaptionsSettings, font_button_ar);
@@ -401,12 +415,45 @@ static void on_add_model_response(GtkNativeDialog *native,
     g_object_unref(native);
 }
 
+static void find_headerbar_recursive(GtkWidget *widget, GtkWidget **found) {
+    if (*found) return;
+    if (ADW_IS_HEADER_BAR(widget)) {
+        *found = widget;
+        return;
+    }
+    GtkWidget *child = gtk_widget_get_first_child(widget);
+    while (child) {
+        find_headerbar_recursive(child, found);
+        if (*found) return;
+        child = gtk_widget_get_next_sibling(child);
+    }
+}
+
+static gboolean add_close_button_deferred(gpointer user_data) {
+    LiveCaptionsSettings *self = LIVECAPTIONS_SETTINGS(user_data);
+    
+    GtkWidget *header = NULL;
+    find_headerbar_recursive(GTK_WIDGET(self), &header);
+    
+    if (header && ADW_IS_HEADER_BAR(header)) {
+        GtkWidget *close_btn = gtk_button_new_from_icon_name("window-close-symbolic");
+        gtk_widget_add_css_class(close_btn, "circular");
+        gtk_widget_add_css_class(close_btn, "destructive-action");
+        g_signal_connect_swapped(close_btn, "clicked", G_CALLBACK(gtk_window_close), self);
+        adw_header_bar_pack_end(ADW_HEADER_BAR(header), close_btn);
+    }
+    
+    return G_SOURCE_REMOVE;
+}
+
 static void livecaptions_settings_init(LiveCaptionsSettings *self) {
     gtk_widget_init_template(GTK_WIDGET(self));
 
+    g_idle_add(add_close_button_deferred, self);
+
     adw_action_row_set_activatable_widget(self->font_button_ar, GTK_WIDGET(self->font_button));
 
-    self->settings = g_settings_new("net.sapples.LiveCaptions");
+    self->settings = g_settings_new("net.waltergarcia.LiveCaptions");
 
     g_settings_bind(self->settings, "text-uppercase", self->text_upper_switch, "active", G_SETTINGS_BIND_DEFAULT);
     g_settings_bind(self->settings, "fade-text", self->fade_text_switch, "active", G_SETTINGS_BIND_DEFAULT);

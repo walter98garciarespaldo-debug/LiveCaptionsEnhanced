@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
-  input: 'net.sapples.LiveCaptions.desktop.in',
-  output: 'net.sapples.LiveCaptions.desktop',
+  input: 'net.waltergarcia.LiveCaptions.desktop.in',
+  output: 'net.waltergarcia.LiveCaptions.desktop',
   type: 'desktop',
   po_dir: '../po',
   install: true,
@@ -15,8 +15,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-  input: 'net.sapples.LiveCaptions.appdata.xml.in',
-  output: 'net.sapples.LiveCaptions.appdata.xml',
+  input: 'net.waltergarcia.LiveCaptions.appdata.xml.in',
+  output: 'net.waltergarcia.LiveCaptions.appdata.xml',
   po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'appdata')
@@ -29,12 +29,12 @@ if appstream_util.found()
   )
 endif
 
-gnome.compile_schemas(build_by_default: true, depend_files: 'net.sapples.LiveCaptions.gschema.xml')
+gnome.compile_schemas(build_by_default: true, depend_files: 'net.waltergarcia.LiveCaptions.gschema.xml')
 devenv = environment()
 devenv.set('GSETTINGS_SCHEMA_DIR', meson.current_build_dir() / 'data')
 meson.add_devenv(devenv)
 
-install_data('net.sapples.LiveCaptions.gschema.xml',
+install_data('net.waltergarcia.LiveCaptions.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 

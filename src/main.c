@@ -43,7 +43,7 @@ int main (int argc, char *argv[]) {
                         pw_get_library_version());
 #endif
 
-    GSettings *settings = g_settings_new("net.sapples.LiveCaptions");
+    GSettings *settings = g_settings_new("net.waltergarcia.LiveCaptions");
     char *active_model = g_settings_get_string(settings, "active-model");
     if(active_model == NULL) active_model = GET_MODEL_PATH();
 
@@ -68,7 +68,7 @@ int main (int argc, char *argv[]) {
         * application windows, integration with the window manager/compositor, and
         * desktop features such as file opening and single-instance applications.
         */
-        app = livecaptions_application_new("net.sapples.LiveCaptions", G_APPLICATION_FLAGS_NONE);
+        app = livecaptions_application_new("net.waltergarcia.LiveCaptions", G_APPLICATION_FLAGS_NONE);
 
 
         app->asr = asr;

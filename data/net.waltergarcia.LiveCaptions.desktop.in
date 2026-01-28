@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Live Captions
+Name=Live Captions Enhanced
 Comment=Provides live captioning for desktop and microphone audio
-Icon=net.sapples.LiveCaptions
+Icon=net.waltergarcia.LiveCaptions
 Exec=livecaptions
 Terminal=false
 Categories=Accessibility;GTK;Utility;

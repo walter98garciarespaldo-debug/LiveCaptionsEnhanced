@@ -305,7 +305,7 @@ static void refresh_cb(LiveCaptionsHistoryWindow *self) {
 static void livecaptions_history_window_class_init(LiveCaptionsHistoryWindowClass *klass) {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    gtk_widget_class_set_template_from_resource(widget_class, "/net/sapples/LiveCaptions/livecaptions-history-window.ui");
+    gtk_widget_class_set_template_from_resource(widget_class, "/net/waltergarcia/LiveCaptions/livecaptions-history-window.ui");
 
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsHistoryWindow, scroll);
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsHistoryWindow, main_box);
@@ -320,7 +320,7 @@ static void livecaptions_history_window_class_init(LiveCaptionsHistoryWindowClas
 static void livecaptions_history_window_init(LiveCaptionsHistoryWindow *self) {
     gtk_widget_init_template(GTK_WIDGET(self));
 
-    self->settings = g_settings_new("net.sapples.LiveCaptions");
+    self->settings = g_settings_new("net.waltergarcia.LiveCaptions");
 
 
     self->session_load = 0;

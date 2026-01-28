@@ -45,7 +45,7 @@ void history_init(void){
 
     printf("Save file: %s\n", default_history_file);
 
-    if(settings == NULL) settings = g_settings_new("net.sapples.LiveCaptions");
+    if(settings == NULL) settings = g_settings_new("net.waltergarcia.LiveCaptions");
 }
 
 

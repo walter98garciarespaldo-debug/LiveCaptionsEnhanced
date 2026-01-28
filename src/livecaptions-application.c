@@ -123,7 +123,7 @@ static gboolean on_handle_allow_keep_above(DBLCapNetSapplesLiveCaptionsExternal 
 
     override_keep_above_system(true);
 
-    dblcap_net_sapples_live_captions_external_complete_allow_keep_above(dbus_external, invocation);
+    dblcap_net_waltergarcia_live_captions_external_complete_allow_keep_above(dbus_external, invocation);
     return TRUE;
 }
 
@@ -135,12 +135,12 @@ livecaptions_application_dbus_register(GApplication     *app,
 {
     LiveCaptionsApplication *self = LIVECAPTIONS_APPLICATION(app);
  
-    self->dbus_external = dblcap_net_sapples_live_captions_external_skeleton_new();
+    self->dbus_external = dblcap_net_waltergarcia_live_captions_external_skeleton_new();
 
     gboolean success = g_dbus_interface_skeleton_export(
         G_DBUS_INTERFACE_SKELETON(self->dbus_external),
         connection,
-        "/net/sapples/LiveCaptions/External",
+        "/net/waltergarcia/LiveCaptions/External",
         error
     );
 
@@ -151,12 +151,12 @@ livecaptions_application_dbus_register(GApplication     *app,
     }
 
 
-    dblcap_net_sapples_live_captions_external_set_keep_above(
+    dblcap_net_waltergarcia_live_captions_external_set_keep_above(
         self->dbus_external,
         g_settings_get_boolean(self->settings, "keep-on-top")
     );
 
-    dblcap_net_sapples_live_captions_external_set_text_stream_active(
+    dblcap_net_waltergarcia_live_captions_external_set_text_stream_active(
         self->dbus_external,
         g_settings_get_boolean(self->settings, "text-stream-active")
     );
@@ -190,7 +190,7 @@ livecaptions_application_startup(GApplication *app) {
 
     // Global CSS Loading for SVP
     GtkCssProvider *provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_resource(provider, "/net/sapples/LiveCaptions/style.css");
+    gtk_css_provider_load_from_resource(provider, "/net/waltergarcia/LiveCaptions/style.css");
     gtk_style_context_add_provider_for_display(gdk_display_get_default(),
                                                GTK_STYLE_PROVIDER(provider),
                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -288,7 +288,7 @@ static void on_settings_change(G_GNUC_UNUSED GSettings *settings,
         }
     }else if(g_str_equal(key, "keep-on-top")){
         if(self->dbus_external) {
-            dblcap_net_sapples_live_captions_external_set_keep_above(
+            dblcap_net_waltergarcia_live_captions_external_set_keep_above(
                 self->dbus_external,
                 g_settings_get_boolean(self->settings, "keep-on-top")
             );
@@ -296,7 +296,7 @@ static void on_settings_change(G_GNUC_UNUSED GSettings *settings,
     }else if(g_str_equal(key, "text-stream-active")){
         if(self->dbus_external) {
             gboolean active = g_settings_get_boolean(self->settings, "text-stream-active");
-            dblcap_net_sapples_live_captions_external_set_text_stream_active(
+            dblcap_net_waltergarcia_live_captions_external_set_text_stream_active(
                 self->dbus_external,
                 active
             );
@@ -375,7 +375,7 @@ livecaptions_application_copy_all(G_GNUC_UNUSED GSimpleAction *action,
 
 
 static void livecaptions_application_init(LiveCaptionsApplication *self) {
-    self->settings = g_settings_new("net.sapples.LiveCaptions");
+    self->settings = g_settings_new("net.waltergarcia.LiveCaptions");
     // Set the default model path
     g_settings_set_string(self->settings, "active-model", "/usr/local/share/livecaptions/april-english-dev-01110_en.april");
 
@@ -450,6 +450,6 @@ void livecaptions_application_finish_setup(LiveCaptionsApplication *self, gdoubl
 void livecaptions_application_stream_text(LiveCaptionsApplication *self, const char* text) {
     // printf("\n\n----\nSTREAM TEXT:\n%s", text);
     if(self->dbus_external) {
-        dblcap_net_sapples_live_captions_external_emit_text_stream(self->dbus_external, text);
+        dblcap_net_waltergarcia_live_captions_external_emit_text_stream(self->dbus_external, text);
     }
 }

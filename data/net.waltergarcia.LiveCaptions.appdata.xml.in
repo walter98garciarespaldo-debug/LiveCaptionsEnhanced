@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>net.sapples.LiveCaptions</id>
+  <id>net.waltergarcia.LiveCaptions</id>
 
   <name>Live Captions</name>
   <summary>Live Captioning for the desktop</summary>
@@ -94,7 +94,7 @@
 
   <metadata_license>CC0-1.0</metadata_license>
 
-  <launchable type="desktop-id">net.sapples.LiveCaptions.desktop</launchable>
+  <launchable type="desktop-id">net.waltergarcia.LiveCaptions.desktop</launchable>
   <project_license>GPL-3.0-or-later</project_license>
   <content_rating type="oars-1.1" />
 </component>

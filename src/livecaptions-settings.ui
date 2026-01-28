@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <template class="LiveCaptionsSettings" parent="AdwPreferencesWindow">
+    <style>
+      <class name="settings-window"/>
+    </style>
     <property name="can-navigate-back">True</property>
     <property name="search-enabled">False</property>
     <property name="title">Live Captions Preferences</property>
@@ -11,7 +14,6 @@
       <object class="AdwPreferencesPage">
         <property name="icon_name">settings-symbolic</property>
         <property name="title">Options</property>
-
 
         <child>
           <object class="AdwPreferencesGroup">
@@ -214,7 +216,7 @@
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Report Accuracy Issue</property>
-                <property name="subtitle" translatable="no">https://github.com/abb128/LiveCaptions/issues/48</property>
+                <property name="subtitle" translatable="no">https://github.com/walter98garciarespaldo-debug/LiveCaptionsEnhanced/issues</property>
                 <property name="activatable">True</property>
                 <signal name="activated" handler="report_cb" swapped="yes"/>
                 <child>

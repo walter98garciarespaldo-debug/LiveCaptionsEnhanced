@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="livecaptions">
-    <schema id='net.sapples.LiveCaptions' path='/net/sapples/LiveCaptions/'>
+    <schema id='net.waltergarcia.LiveCaptions' path='/net/waltergarcia/LiveCaptions/'>
         <key name="font-name" type="s">
             <default>'Sans Regular 24'</default>
             <summary>The font of the captions</summary>

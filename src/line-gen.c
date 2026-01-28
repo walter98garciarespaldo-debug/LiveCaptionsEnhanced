@@ -108,7 +108,7 @@ void line_generator_init(struct line_generator *lg) {
     lg->current_line = 0;
     lg->active_start_of_lines[0] = 0;
 
-    if(settings == NULL) settings = g_settings_new("net.sapples.LiveCaptions");
+    if(settings == NULL) settings = g_settings_new("net.waltergarcia.LiveCaptions");
 
     token_capitalizer_init(&lg->tcap);
 }

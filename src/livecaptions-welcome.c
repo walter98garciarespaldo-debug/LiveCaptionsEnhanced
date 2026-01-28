@@ -181,7 +181,7 @@ static void cancel_cb(LiveCaptionsWelcome *self){
 static void livecaptions_welcome_class_init (LiveCaptionsWelcomeClass *klass) {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    gtk_widget_class_set_template_from_resource(widget_class, "/net/sapples/LiveCaptions/livecaptions-welcome.ui");
+    gtk_widget_class_set_template_from_resource(widget_class, "/net/waltergarcia/LiveCaptions/livecaptions-welcome.ui");
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWelcome, stack);
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWelcome, initial_page);
     gtk_widget_class_bind_template_child(widget_class, LiveCaptionsWelcome, benching_page);

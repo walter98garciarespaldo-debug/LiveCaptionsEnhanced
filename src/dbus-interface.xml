@@ -3,7 +3,7 @@
 "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 
 <node xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
-    <interface name="net.sapples.LiveCaptions.External">
+    <interface name="net.waltergarcia.LiveCaptions.External">
         <!-- On Wayland, the keep above setting is disabled as Wayland does not support it.
              This may be called by the desktop extension to re-enable the setting. -->
         <method name="AllowKeepAbove" />

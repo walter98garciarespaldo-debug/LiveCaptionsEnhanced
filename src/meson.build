@@ -7,7 +7,7 @@ livecaptions_resources = gnome.compile_resources('livecaptions-resources',
 # Procesa el archivo de interfaz D-Bus XML.
 dbus_interface = gnome.gdbus_codegen('dbus-interface',
   'dbus-interface.xml',
-  interface_prefix: 'net.sapples.',
+  interface_prefix: 'net.waltergarcia.',
   namespace: 'DBLCap'
 )
 

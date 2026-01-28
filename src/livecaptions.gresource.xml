@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/net/sapples/LiveCaptions">
+  <gresource prefix="/net/waltergarcia/LiveCaptions">
     <file>livecaptions-window.ui</file>
     <file>livecaptions-welcome.ui</file>
     <file>livecaptions-settings.ui</file>
@@ -8,7 +8,7 @@
     <file>style.css</file>
   </gresource>
 
-  <gresource prefix="/net/sapples/LiveCaptions/icons/scalable/actions/">
+  <gresource prefix="/net/waltergarcia/LiveCaptions/icons/scalable/actions/">
     <file preprocess="xml-stripblanks">microphone2-symbolic.svg</file>
     <file preprocess="xml-stripblanks">entry-clear-symbolic.svg</file>
     <file preprocess="xml-stripblanks">settings-symbolic.svg</file>

@@ -213,7 +213,7 @@ asr_thread create_asr_thread(const char *model_path){
             return NULL;
         }
 
-        GSettings *settings = g_settings_new("net.sapples.LiveCaptions");
+        GSettings *settings = g_settings_new("net.waltergarcia.LiveCaptions");
         g_settings_set_string(settings, "active-model", model_default);
         g_object_unref(G_OBJECT(settings));
     }
