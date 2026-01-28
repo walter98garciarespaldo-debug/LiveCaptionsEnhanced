@@ -1,0 +1,47 @@
+# Directorios de compilación de Meson
+/build/
+/builddir/
+/_build/
+/.flatpak-builder/
+
+# Archivos de la biblioteca ONNX Runtime (descargada manualmente)
+# Es mejor no incluir binarios de terceros en el repositorio.
+/onnxruntime-*/
+
+# Modelos de ASR descargados
+# Son archivos binarios grandes que no deben estar en Git.
+*.april
+
+# Archivos generados por D-Bus (gdbus-codegen)
+# Estos se generan durante la compilación a partir de dbus-interface.xml
+src/dbus-interface.c
+src/dbus-interface.h
+
+# Archivos de localización generados (gettext/po)
+# Solo los archivos .po y POTFILES/LINGUAS deben estar en el repo.
+po/*.gmo
+po/livecaptions.pot
+
+# Archivos binarios ejecutables
+/src/livecaptions
+
+# Archivos de caché del sistema de compilación
+.ninja_deps
+.ninja_log
+
+# Archivos temporales de ofimática (por los .odt)
+~$*.odt
+.~lock.*#
+
+# Archivos de respaldo y temporales de editores comunes
+*~
+*.swp
+*.swo
+*.bak
+
+# Ignorar el archivo de contenido generado, pero no los scripts.
+/ignore/contenido_proyecto.txt
+GEMINI.md
+build/
+*.o
+ignore

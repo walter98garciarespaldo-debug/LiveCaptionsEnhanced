@@ -1,0 +1,189 @@
+@define-color synapse_bg #0F172A;
+@define-color synapse_fg #F1F5F9;
+@define-color synapse_cyan #1198cf;
+@define-color synapse_purple #4d1b5f;
+@define-color synapse_electric #00bbf9;
+@define-color legacy_pink #E7116F;
+@define-color glass_surface rgba(15, 23, 42, 0.7);
+@define-color glass_border rgba(255, 255, 255, 0.08);
+
+/* Main Window - Ethereal Transparency */
+.main-window-parent,
+window.main-window-parent {
+    background-color: transparent;
+    background: transparent;
+    color: @synapse_fg;
+    font-family: "Outfit", "Inter", "Roboto", sans-serif;
+    font-weight: 500;
+    box-shadow: none;
+    border: none;
+}
+
+/* Cleanup standard decorations - Kill Ghosting */
+/* Note: GTK CSS does NOT support !important */
+.main-window-parent decoration,
+window.main-window-parent decoration,
+window.main-window-parent.csd decoration {
+    background-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove invisible padding that GTK adds for shadows */
+window.main-window-parent {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 
+   SVP Container: "The Neural Shell"
+   Deep gradient with a glowing border 
+*/
+.main-container {
+    background-image: linear-gradient(165deg,
+            #0f172a 0%,
+            #1e293b 40%,
+            #4d1b5f 100%);
+    border-radius: 20px;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar Box Glass Effect */
+#side_box,
+.sidebar-glass {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+    padding: 12px 10px;
+}
+
+/* 
+   Glass & Flow Buttons 
+   Tactile, responsive, and glowing
+*/
+button.flat {
+    min-height: 44px;
+    min-width: 44px;
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.04);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    margin: 6px;
+    padding: 10px;
+    transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button.flat:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    box-shadow: 0 0 25px rgba(17, 152, 207, 0.35);
+    border-color: rgba(17, 152, 207, 0.6);
+    transform: scale(1.1) translateY(-2px);
+}
+
+button.flat:active {
+    background-color: @synapse_cyan;
+    color: white;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(0.92) translateY(1px);
+    transition-duration: 100ms;
+}
+
+button.flat:checked {
+    background-image: linear-gradient(to bottom right, @synapse_cyan, @synapse_electric);
+    color: white;
+    border-color: @synapse_electric;
+    box-shadow: 0 0 30px rgba(0, 187, 249, 0.5);
+}
+
+/* Typography Enhancements */
+label {
+    color: #f8fafc;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    padding: 4px;
+}
+
+/* Scrolled Window: Premium Feel */
+scrolledwindow {
+    padding: 4px;
+}
+
+scrolledwindow undershoot.top,
+scrolledwindow undershoot.bottom {
+    background-image: radial-gradient(ellipse at center, rgba(17, 152, 207, 0.15), transparent);
+}
+
+/* Window Controls (Close Button) */
+windowcontrols button {
+    border-radius: 50%;
+    min-height: 24px;
+    min-width: 24px;
+    margin: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 200ms ease;
+}
+
+windowcontrols button:hover {
+    background-color: @legacy_pink;
+    box-shadow: 0 0 15px rgba(231, 17, 111, 0.5);
+    border-color: @legacy_pink;
+    color: white;
+}
+
+/* Status Warnings - Glowing and Breathing */
+.warning-icon {
+    animation: breathing 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+.slow-icon {
+    color: #fb923c;
+    filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.4));
+}
+
+.slowest-icon {
+    color: #f87171;
+    filter: drop-shadow(0 0 5px rgba(248, 113, 113, 0.4));
+}
+
+@keyframes breathing {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+        filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.7));
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes flashing {
+    0% {
+        color: #fbbf24;
+    }
+
+    50% {
+        color: #ef4444;
+    }
+
+    100% {
+        color: #fbbf24;
+    }
+}
