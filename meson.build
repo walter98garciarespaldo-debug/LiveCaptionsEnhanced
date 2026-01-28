@@ -63,6 +63,11 @@ install_data('april-english-dev-01110_en.april',
   install_dir: join_paths(get_option('datadir'), 'livecaptions')
 )
 
+# Incluir la librería ONNX indispensable para April ASR en el paquete
+install_data('libs/libonnxruntime.so.1.13.1',
+  install_dir: get_option('libdir')
+)
+
 # Tareas Post-Instalación
 gnome.post_install(
   glib_compile_schemas: true,
