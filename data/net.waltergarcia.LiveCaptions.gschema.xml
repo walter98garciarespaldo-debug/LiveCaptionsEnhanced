@@ -60,12 +60,12 @@
         </key>
 
         <key name="installed-models" type="as">
-            <default>['/app/LiveCaptions/models/aprilv0_en-us.april']</default>
+            <default>['/usr/share/livecaptions/april-english-dev-01110_en.april']</default>
             <summary>List of installed models</summary>
         </key>
 
         <key name="active-model" type="s">
-            <default>'/app/LiveCaptions/models/aprilv0_en-us.april'</default>
+            <default>'/usr/share/livecaptions/april-english-dev-01110_en.april'</default>
             <summary>Currently active model</summary>
         </key>
 

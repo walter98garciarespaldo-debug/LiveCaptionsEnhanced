@@ -45,3 +45,5 @@ GEMINI.md
 build/
 *.o
 ignore
+*.deb
+pkg/

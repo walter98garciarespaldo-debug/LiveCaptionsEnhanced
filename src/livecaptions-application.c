@@ -377,7 +377,7 @@ livecaptions_application_copy_all(G_GNUC_UNUSED GSimpleAction *action,
 static void livecaptions_application_init(LiveCaptionsApplication *self) {
     self->settings = g_settings_new("net.waltergarcia.LiveCaptions");
     // Set the default model path
-    g_settings_set_string(self->settings, "active-model", "/usr/local/share/livecaptions/april-english-dev-01110_en.april");
+    g_settings_set_string(self->settings, "active-model", "/usr/share/livecaptions/april-english-dev-01110_en.april");
 
     g_autoptr(GSimpleAction) quit_action = g_simple_action_new("quit", NULL);
     g_signal_connect_swapped(quit_action, "activate", G_CALLBACK(g_application_quit), self);
